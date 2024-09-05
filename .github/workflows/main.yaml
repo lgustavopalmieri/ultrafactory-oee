@@ -13,6 +13,6 @@ jobs:
       - name: "Nodejs 18.20.4 version definition"
         uses: actions/setup-node@v4
         with:
-          node-version: "20.20.4"
+          node-version: "20.13.1"
       - name: "Verify nodejs version after installed"
         run: node --version
