@@ -1,27 +1,18 @@
 name: second-pipeline
-on: 
+on:
   push:
     branches: ["main"]
   workflow_dispatch:
 jobs:
-  first-job:
-    name: "My first Job"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "My first ACTION"
-        run: echo "Hello World!"
-      - name: "Second ACTION"
-        run: |
-          echo "You've created your first workflow!"
-          echo "Congratulations!!!"
-      - name: "Script Python"
-        run: |
-          variable = "Hello Python script!"
-          print(variable)
-        shell: python
   second-job:
-    name: "Nodejs envirnment installing "
+    name: "Nodejs environment installing "
     runs-on: ubuntu-latest
     steps:
       - name: "Verify current nodejs version"
+        run: node --version
+      - name: "Nodejs 18.20.4 version definition"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.20.4"
+      - name: "Verify nodejs version after installed"
         run: node --version
