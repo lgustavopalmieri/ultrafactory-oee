@@ -10,8 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "My first ACTION"
+        # working-directory: directory you want your command run
         run: echo "Hello World!"
       - name: "Second ACTION"
         run: |
           echo "You've created your first workflow!"
           echo "Congratulations!!!"
+      - name: "Script Python"
+        run: |
+          variable = "Hello Python script!"
+          print(variable)
+        # shell: depending the runner os/platform, shell changes
+        shell: python
+
+# https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
