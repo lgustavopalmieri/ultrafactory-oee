@@ -1,0 +1,17 @@
+name: first-pipeline
+on: 
+  push:
+    branches: ["main"]
+  # permite executar a pipeline manualmente
+  workflow_dispatch:
+jobs:
+  first-job:
+    name: "My first Job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "My first ACTION"
+        run: echo "Hello World!"
+      - name: "Second ACTION"
+        run: |
+          echo "You've created your first workflow!"
+          echo "Congratulations!!!"
