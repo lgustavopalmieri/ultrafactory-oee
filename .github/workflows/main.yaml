@@ -4,9 +4,17 @@ on:
     branches: ["main"]
   workflow_dispatch:
 jobs:
+  first-job:
+    name: "first job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "My first ACTION"
+        run: echo "Hello World!"
   second-job:
     name: "Nodejs environment installing "
     runs-on: ubuntu-latest
+    # this is how can we do sequential jobs
+    needs: ["first-job"]
     steps:
       - name: "Verify current nodejs version"
         run: node --version
