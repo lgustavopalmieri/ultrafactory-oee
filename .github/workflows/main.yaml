@@ -1,7 +1,7 @@
 name: CI-CD
 on:
   push:
-    branches: ["feature/pipeline-ci"]
+    branches: ["main"]
   workflow_dispatch:
 jobs:
   CI:
@@ -15,12 +15,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Docker Image Build
-        uses: docker/build-push-action@v5.3.0 
+      - name: Docker Image Build and Push to DockerHub
+        uses: docker/build-push-action@v5.3.0
         with:
-            context: ./
-            file: ./Dockerfile
-            push: true
-            tags: |
-              lgustavopalmieri/ultrafactory-oee:v${{ github.run_number }}  
-              lgustavopalmieri/ultrafactory-oee:latest
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: |
+            lgustavopalmieri/ultrafactory-oee:v${{ github.run_number }}  
+            lgustavopalmieri/ultrafactory-oee:latest
+
+# docker container run -d -p 4003:4003 lgustavopalmieri/ultrafactory-oee:v12
