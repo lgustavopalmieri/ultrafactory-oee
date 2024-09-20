@@ -1,5 +1,12 @@
 FROM golang:alpine
 WORKDIR /app
+RUN apk add --no-cache git make \
+    && go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+COPY go.mod go.sum ./
+COPY ./internal/infra/database/postgres/sql/migrations /app/internal/infra/database/postgres/sql/migrations
+RUN go mod download
+
 COPY . .
 COPY .env ./ 
 EXPOSE 4003

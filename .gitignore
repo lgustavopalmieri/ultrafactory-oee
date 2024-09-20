@@ -1,0 +1,7 @@
+requirements
+steps.txt
+cmd/.env
+k8s/secret-oee-ultrafactory.yaml
+.env
+/.env
+env

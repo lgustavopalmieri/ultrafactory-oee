@@ -4,9 +4,14 @@ services:
   ultrafactory-oee:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "4003:4003"
     platform: linux/amd64
     env_file:
       - .env
+
+networks:
+ ultrafactory-network:
+    external: true
+    driver: bridge

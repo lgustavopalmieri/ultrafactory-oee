@@ -13,9 +13,13 @@ spec:
     spec:
       containers:
         - name: ultrafactory-oee
-          image: lgustavopalmieri/ultrafactory-oee
+          # docker build -t lgustavopalmieri/ultrafactory-oee:v1 --push .
+          image: lgustavopalmieri/ultrafactory-oee:v1
           ports:
             - containerPort: 4003
+          envFrom:
+            - secretRef:
+                name: oee-ultrafactory-backend-secret
 ---
 apiVersion: v1
 kind: Service
@@ -27,4 +31,4 @@ spec:
   ports:
     - port: 80
       targetPort: 4003
-  type: LoadBalancer
+  # type: LoadBalancer
