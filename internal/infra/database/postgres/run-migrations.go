@@ -1,22 +1,30 @@
 package postgres
 
 import (
+	"database/sql"
+	"embed"
 	"log"
 
-	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-
 	_ "github.com/lib/pq"
+	"github.com/pressly/goose/v3"
 )
 
-func RunPostgresMigrations(migrationURL string, dbSource string) {
-	migration, err := migrate.New(migrationURL, dbSource)
-	if err != nil {
-		log.Fatal("cannot create new migrate instance: ", err)
+//go:embed migrations/*.sql
+var embedMigrations embed.FS
+
+func RunPostgresMigrations(db *sql.DB) {
+	// Set the embedded migrations as the source
+	goose.SetBaseFS(embedMigrations)
+	
+	// Set the dialect to Postgres
+	if err := goose.SetDialect("postgres"); err != nil {
+		log.Fatal("Cannot set database dialect: ", err)
 	}
-	if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatal("failed to run migrate up: ", err)
+	
+	// Run migrations
+	if err := goose.Up(db, "migrations"); err != nil {
+		log.Fatal("Failed to run migrations: ", err)
 	}
-	log.Println("db migrate successfully")
+	
+	log.Println("Database migration successfully applied!")
 }

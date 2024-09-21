@@ -8,6 +8,7 @@ import (
 	"github.com/lgustavopalmieri/ultrafactory-oee/configs"
 	"github.com/lgustavopalmieri/ultrafactory-oee/internal/adapters/web/routes"
 	"github.com/lgustavopalmieri/ultrafactory-oee/internal/adapters/web/server"
+	"github.com/lgustavopalmieri/ultrafactory-oee/internal/infra/database/postgres"
 	_ "github.com/lib/pq"
 )
 
@@ -23,12 +24,12 @@ func main() {
 		panic(err)
 	}
 	time.Sleep(10 * time.Second)
-	// postgresdb.RunPostgresMigrations(cfg.MigrationURL, cfg.DBSource)
 	defer db.Close()
-
+	
 	if err := db.Ping(); err != nil {
 		panic(fmt.Sprintf("Unable to connect to the database: %v", err))
 	}
+	postgres.RunPostgresMigrations(db)
 	fmt.Println("Successfully connected to the database.")
 
 	webserver := server.NewWebServer(":4003")

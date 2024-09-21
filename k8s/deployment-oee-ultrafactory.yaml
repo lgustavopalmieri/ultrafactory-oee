@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
         - name: ultrafactory-oee
-          # docker build -t lgustavopalmieri/ultrafactory-oee:v1 --push .
-          image: lgustavopalmieri/ultrafactory-oee:v1
+          # docker build -t lgustavopalmieri/ultrafactory-oee:v2 --push .
+          image: lgustavopalmieri/ultrafactory-oee:v2
           ports:
             - containerPort: 4003
           envFrom:
@@ -32,3 +32,4 @@ spec:
     - port: 80
       targetPort: 4003
   # type: LoadBalancer
+# kubectl port-forward svc/ultrafactory-oee 4003:80

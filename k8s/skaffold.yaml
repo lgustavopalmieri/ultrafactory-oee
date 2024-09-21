@@ -1,0 +1,19 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: ultrafactory-oee
+build:
+  artifacts:
+    - image: lgustavopalmieri/ultrafactory-oee
+      context: ..
+      docker:
+        dockerfile: Dockerfile
+manifests:
+  rawYaml:
+    - ./deployment-oee-ultrafactory.yaml
+    - ./secret-oee-ultrafactory.yaml
+portForward:
+    - resourceType: service
+      resourceName: ultrafactory-oee 
+      port: 80                             
+      localPort: 4003  
