@@ -1,12 +1,15 @@
 -- +goose Up
 -- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS locations (
-    locationId SERIAL PRIMARY KEY,
-    locationName VARCHAR(255) NOT NULL,
-    locationAddress VARCHAR(255) NOT NULL,
-    locationTimezone VARCHAR(50) NOT NULL,
-    locationLat VARCHAR(50) NOT NULL,
-    locationLong VARCHAR(50) NOT NULL
+    location_id SERIAL PRIMARY KEY,
+    location_name VARCHAR(255) NOT NULL,
+    location_address VARCHAR(255) NOT NULL,
+    location_timezone VARCHAR(50) NOT NULL,
+    location_latitude VARCHAR(50) NOT NULL,
+    location_longitude VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP NULL
 );
 -- +goose StatementEnd
 
